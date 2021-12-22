@@ -19,9 +19,9 @@ app.get('/feed', (req, res) => {
 
 // Route to receive events.
 app.post('/events', (req, res) => {
-  console.log('Event received:', req.body.type);
-
   const { type, data } = req.body;
+
+  console.log('Event received:', type);
 
   handleEvent(type, data);
 
@@ -53,17 +53,22 @@ app.listen(PORT, async () => {
 const handleEvent = (type, data) => {
   // If a new post has been created, store the post in the memory with the given id.
   if (type === 'PostCreated') {
-    const { postId, title } = data;
-    feed[postId] = { postId, title, comments: [] };
+    const { postId, postTitle } = data;
+    console.log(data);
+    feed[postId] = { postId, postTitle, postComments: [] };
   }
 
   // If a new comment has been created, obtain the reference of the post
   // and push a new comment.
   if (type === 'CommentCreated') {
-    const { commentId, content, postId } = data;
+    const { commentId, commentContent, postId } = data;
 
     const post = feed[postId];
 
-    post.comments.push({ commentId, content });
+    const { postComments } = post;
+
+    postComments.push({ commentId, commentContent });
+
+    console.log(postComments);
   }
 };

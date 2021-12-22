@@ -16,7 +16,7 @@ STRUCTURE OF A POST:
 type: string,
 data:{
 postId,
-title
+postTitle
 }
 
 STRUCTURE OF A COMMENT:
@@ -24,8 +24,12 @@ type: string,
 data: {
 postId,
 commentId,
-content,
+commentContent
 }
 
 STRUCTURE OF FEED:
-feed[postId] = { postId, title, comments: [] };
+data:{
+postId,
+postTitle,
+postComments: []
+}

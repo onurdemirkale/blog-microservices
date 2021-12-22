@@ -19,19 +19,22 @@ const commentsByPostId = {}; // Stores comments by post id. Every post has an ar
 
 // Sends all the posts of a comment, empty array if none.
 app.get('/posts/:postId/comments', (req, res) => {
-  res.send(commentsByPostId[req.params.postId] || []);
+  const { postId } = req.params;
+
+  res.send(commentsByPostId[postId] || []);
 });
 
 // Adds a new comment to a post with a generated UUID.
 app.post('/posts/:postId/comments', async (req, res) => {
   const commentId = uuidv4(); // Generate a UUID for the comment.
-  const { content } = req.body;
+  const { commentContent } = req.body;
+  const { postId } = req.params;
 
-  const comments = commentsByPostId[req.params.postId] || [];
+  const postComments = commentsByPostId[postId] || [];
 
-  comments.push({ commentId: commentId, content, status: 'pending' });
+  postComments.push({ commentId, commentContent });
 
-  commentsByPostId[req.params.postId] = comments;
+  commentsByPostId[postId] = postComments;
 
   // Emit an event signifying that a new comment has been created.
   try {
@@ -39,15 +42,15 @@ app.post('/posts/:postId/comments', async (req, res) => {
       type: 'CommentCreated',
       data: {
         commentId,
-        content,
-        postId: req.params.postId,
+        commentContent,
+        postId,
       },
     });
   } catch (error) {
     console.log(error);
   }
 
-  res.status(201).send(comments);
+  res.status(201).send();
 });
 
 // Route to receive events. This route will be used if additional

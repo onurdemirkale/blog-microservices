@@ -25,23 +25,23 @@ app.get('/posts', (req, res) => {
 // Adds a post with a generated UUID.
 app.post('/posts', async (req, res) => {
   const postId = uuidv4();
-  const { title } = req.body;
+  const { postTitle } = req.body;
 
-  postsById[postId] = { postId, title };
+  postsById[postId] = { postId, postTitle };
 
   try {
     await axios.post('http://localhost:4005/events', {
       type: 'PostCreated',
       data: {
         postId,
-        title,
+        postTitle,
       },
     });
   } catch (error) {
     console.log(error);
   }
 
-  res.status(201).send(posts[postId]);
+  res.status(201).send(postsById[postId]);
 });
 
 // Route to receive events. This route will be used if additional
