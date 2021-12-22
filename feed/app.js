@@ -10,11 +10,11 @@ app.use(express.json()); // To make sure that the JSON data in the body of a req
 app.use(cors()); // Enable CORS for all requests.
 
 // For this simple application posts are stored on the memory.
-let postsById = {}; // Stores posts by post id along with their comments.
+let feed = {}; // Stores posts by post id along with their comments.
 
 // Sends all the stored posts which also contains relevant comments.
-app.get('/posts', (req, res) => {
-  res.send(postsById);
+app.get('/feed', (req, res) => {
+  res.send(feed);
 });
 
 // Route to receive events.
@@ -34,18 +34,12 @@ app.listen(PORT, async () => {
   // Communicate with the event bus to sync events.
   console.log('Syncing events...');
 
-  const res = await axios.get('http://localhost:4005/events');
+  const response = await axios.get('http://localhost:4005/events');
 
-  for (let event of res.data) {
+  for (let event of response.data) {
     console.log('Processing event:', event.type);
 
-    const response = await axios.get('http://localhost:4005/events');
-
-    for (let event of res.data) {
-      console.log('Processing event:', event.type);
-
-      handleEvent(event.type, event.data);
-    }
+    handleEvent(event.type, event.data);
   }
 
   console.log('Events synced.');
@@ -60,7 +54,7 @@ const handleEvent = (type, data) => {
   // If a new post has been created, store the post in the memory with the given id.
   if (type === 'PostCreated') {
     const { postId, title } = data;
-    postsById[postId] = { postId, title, comments: [] };
+    feed[postId] = { postId, title, comments: [] };
   }
 
   // If a new comment has been created, obtain the reference of the post
@@ -68,7 +62,7 @@ const handleEvent = (type, data) => {
   if (type === 'CommentCreated') {
     const { commentId, content, postId } = data;
 
-    const post = postsById[postId];
+    const post = feed[postId];
 
     post.comments.push({ commentId, content });
   }

@@ -26,3 +26,6 @@ postId,
 commentId,
 content,
 }
+
+STRUCTURE OF FEED:
+feed[postId] = { postId, title, comments: [] };
