@@ -17,11 +17,6 @@ app.use(cors()); // Enable CORS for all requests.
 // For this simple application, posts are stored in the memory.
 const postsById = {}; // Stores posts by post id.
 
-// Sends all the stored posts.
-app.get('/posts', (req, res) => {
-  res.send(postsById);
-});
-
 // Adds a post with a generated UUID.
 app.post('/posts', async (req, res) => {
   const postId = uuidv4();
@@ -30,7 +25,7 @@ app.post('/posts', async (req, res) => {
   postsById[postId] = { postId, postTitle };
 
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-service:4005/events', {
       type: 'PostCreated',
       data: {
         postId,

@@ -38,7 +38,7 @@ app.post('/posts/:postId/comments', async (req, res) => {
 
   // Emit an event signifying that a new comment has been created.
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-service:4005/events', {
       type: 'CommentCreated',
       data: {
         commentId,

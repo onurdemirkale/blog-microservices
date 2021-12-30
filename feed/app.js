@@ -34,7 +34,7 @@ app.listen(PORT, async () => {
   // Communicate with the event bus to sync events.
   console.log('Syncing events...');
 
-  const response = await axios.get('http://localhost:4005/events');
+  const response = await axios.get('http://event-bus-service:4005/events');
 
   for (let event of response.data) {
     console.log('Processing event:', event.type);
