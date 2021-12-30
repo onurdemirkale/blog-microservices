@@ -1,0 +1,14 @@
+# ClusterIP Service for the feed microservice.
+apiVersion: v1
+kind: Service
+metadata:
+  name: feed-service
+spec:
+  type: ClusterIP
+  selector:
+    app: feed
+  ports:
+    - name: feed
+      protocol: TCP
+      port: 4002
+      targetPort: 4002

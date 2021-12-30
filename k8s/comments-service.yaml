@@ -1,0 +1,14 @@
+# ClusterIP Service for the comments microservice.
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-service
+spec:
+  type: ClusterIP
+  selector:
+    app: comments
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001
+      targetPort: 4001

@@ -1,0 +1,18 @@
+# Deployment object configuration for the feed microservice.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feed
+  template:
+    metadata:
+      labels:
+        app: feed
+    spec:
+      containers:
+        - name: feed
+          image: rhonur/feed
