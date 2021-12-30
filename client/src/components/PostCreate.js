@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from '../config';
 import axios from 'axios';
 
 const PostCreate = () => {
@@ -7,7 +8,7 @@ const PostCreate = () => {
   const onPostSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post('http://localhost:4000/posts', {
+    await axios.post(`http://${config.domain}/posts`, {
       postTitle,
     });
 

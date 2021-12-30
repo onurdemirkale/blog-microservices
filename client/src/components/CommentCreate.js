@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from '../config';
 import axios from 'axios';
 
 const CommentCreate = ({ postId }) => {
@@ -7,7 +8,7 @@ const CommentCreate = ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    await axios.post(`http://${config.domain}/posts/${postId}/comments`, {
       commentContent,
     });
 

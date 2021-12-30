@@ -1,14 +1,14 @@
-import axios from 'axios';
-import CommentList from './CommentList';
-import CommentCreate from './CommentCreate';
 import React, { useState, useEffect } from 'react';
+import CommentCreate from './CommentCreate';
+import CommentList from './CommentList';
+import config from '../config';
+import axios from 'axios';
 
 const Feed = () => {
   const [feed, setFeed] = useState({});
 
   const fetchFeed = async () => {
-    const response = await axios.get('http://localhost:4002/feed');
-    console.log(response.data);
+    const response = await axios.get(`http://${config.domain}/feed`);
     setFeed(response.data);
   };
 
@@ -18,7 +18,6 @@ const Feed = () => {
 
   const renderedFeed = Object.values(feed).map(
     ({ postTitle, postComments, postId }) => {
-      console.log(feed);
       return (
         <div
           className="card"

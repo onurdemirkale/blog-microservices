@@ -1,6 +1,6 @@
+import PostCreate from './PostCreate';
 import React from 'react';
 import Feed from './Feed';
-import PostCreate from './PostCreate';
 
 const App = () => {
   return (
