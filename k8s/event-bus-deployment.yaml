@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: rhonur/event-bus
+          image: eu.gcr.io/blog-microservices-336813/event-bus

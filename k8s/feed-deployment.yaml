@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: feed
-          image: rhonur/feed
+          image: eu.gcr.io/blog-microservices-336813/feed

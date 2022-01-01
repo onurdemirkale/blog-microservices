@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: posts
-          image: rhonur/posts
+          image: eu.gcr.io/blog-microservices-336813/posts

@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: client
-          image: rhonur/client
+          image: eu.gcr.io/blog-microservices-336813/client
