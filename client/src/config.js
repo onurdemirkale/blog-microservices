@@ -1,5 +1,5 @@
 const config = {
-  domain: '34.89.70.106',
+  domain: 'ip-address-of-load-balancer',
 };
 
 export default config;
